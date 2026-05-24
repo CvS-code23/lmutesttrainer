@@ -3,10 +3,11 @@ import { SUBJECT_META } from '../utils/scoring'
 interface HomeProps {
   onStartPractice: () => void
   onStartTest: () => void
+  onSessionCreator: () => void
   onLiterature: () => void
 }
 
-export function Home({ onStartPractice, onStartTest, onLiterature }: HomeProps) {
+export function Home({ onStartPractice, onStartTest, onSessionCreator, onLiterature }: HomeProps) {
   const subjects = Object.values(SUBJECT_META)
 
   return (
@@ -33,14 +34,14 @@ export function Home({ onStartPractice, onStartTest, onLiterature }: HomeProps) 
       <main className="flex-1 px-4 pb-12">
         <div className="max-w-3xl mx-auto">
           {/* Mode cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
             <button
               onClick={onStartPractice}
               className="group bg-white rounded-2xl p-7 text-left shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-1 border-2 border-transparent hover:border-lmu-gold"
             >
               <div className="text-4xl mb-3">📖</div>
               <h2 className="text-xl font-bold text-lmu-blue mb-1">Üben</h2>
-              <p className="text-gray-500 text-sm">Wähle ein Themengebiet und übe mit sofortigem Feedback. Ideal zur gezielten Vorbereitung einzelner Kapitel.</p>
+              <p className="text-gray-500 text-sm">Themengebiet wählen und adaptiv üben — richtige Antworten führen zu schwereren Fragen.</p>
               <div className="mt-4 inline-flex items-center gap-2 text-lmu-light font-semibold text-sm group-hover:gap-3 transition-all">
                 Jetzt üben <span>→</span>
               </div>
@@ -58,6 +59,19 @@ export function Home({ onStartPractice, onStartTest, onLiterature }: HomeProps) 
               </div>
             </button>
           </div>
+
+          {/* Session Creator card */}
+          <button
+            onClick={onSessionCreator}
+            className="group w-full bg-white rounded-2xl p-6 text-left shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-1 border-2 border-transparent hover:border-lmu-gold mb-8 flex items-center gap-5"
+          >
+            <div className="text-4xl flex-shrink-0">🎛️</div>
+            <div className="flex-1">
+              <h2 className="text-lg font-bold text-lmu-blue mb-1">Session erstellen</h2>
+              <p className="text-gray-500 text-sm">Wähle pro Themengebiet Anzahl und Schwierigkeit der Fragen — deine individuelle Übungseinheit.</p>
+            </div>
+            <div className="text-lmu-light font-semibold text-sm group-hover:translate-x-1 transition-transform">→</div>
+          </button>
 
           {/* Exam info */}
           <div className="bg-white bg-opacity-10 rounded-2xl p-6 backdrop-blur-sm mb-6">

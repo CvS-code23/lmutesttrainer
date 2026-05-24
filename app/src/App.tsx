@@ -4,18 +4,21 @@ import { PracticeMode } from './components/PracticeMode'
 import { TestMode } from './components/TestMode'
 import { ResultsPage } from './components/ResultsPage'
 import { LiteraturePage } from './components/LiteraturePage'
-import { type SessionResult } from './types'
+import { SessionCreator } from './components/SessionCreator'
+import { CustomSession } from './components/CustomSession'
+import { type Question, type SessionResult } from './types'
 
-type View = 'home' | 'practice' | 'test' | 'results' | 'literature'
+type View = 'home' | 'practice' | 'test' | 'results' | 'literature' | 'session-creator' | 'custom-session'
 
 export default function App() {
   const [view, setView] = useState<View>('home')
   const [lastResult, setLastResult] = useState<SessionResult | null>(null)
-  const [lastMode, setLastMode] = useState<'practice' | 'test'>('practice')
+  const [lastView, setLastView] = useState<View>('practice')
+  const [customQuestions, setCustomQuestions] = useState<Question[]>([])
 
-  function handleFinish(result: SessionResult) {
+  function handleFinish(result: SessionResult, returnTo: View) {
     setLastResult(result)
-    setLastMode(result.mode)
+    setLastView(returnTo)
     setView('results')
   }
 
@@ -24,15 +27,34 @@ export default function App() {
       <Home
         onStartPractice={() => setView('practice')}
         onStartTest={() => setView('test')}
+        onSessionCreator={() => setView('session-creator')}
         onLiterature={() => setView('literature')}
       />
     )
   }
 
   if (view === 'literature') {
+    return <LiteraturePage onBack={() => setView('home')} />
+  }
+
+  if (view === 'session-creator') {
     return (
-      <LiteraturePage
+      <SessionCreator
+        onStart={(qs) => {
+          setCustomQuestions(qs)
+          setView('custom-session')
+        }}
         onBack={() => setView('home')}
+      />
+    )
+  }
+
+  if (view === 'custom-session' && customQuestions.length > 0) {
+    return (
+      <CustomSession
+        questions={customQuestions}
+        onFinish={(r) => handleFinish(r, 'session-creator')}
+        onBack={() => setView('session-creator')}
       />
     )
   }
@@ -40,7 +62,7 @@ export default function App() {
   if (view === 'practice') {
     return (
       <PracticeMode
-        onFinish={handleFinish}
+        onFinish={(r) => handleFinish(r, 'practice')}
         onBack={() => setView('home')}
       />
     )
@@ -49,7 +71,7 @@ export default function App() {
   if (view === 'test') {
     return (
       <TestMode
-        onFinish={handleFinish}
+        onFinish={(r) => handleFinish(r, 'test')}
         onBack={() => setView('home')}
       />
     )
@@ -60,7 +82,7 @@ export default function App() {
       <ResultsPage
         result={lastResult}
         onHome={() => setView('home')}
-        onRetry={() => setView(lastMode)}
+        onRetry={() => setView(lastView)}
       />
     )
   }
