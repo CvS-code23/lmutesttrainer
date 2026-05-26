@@ -64,13 +64,16 @@ export function SessionCreator({ onStart, onBack }: SessionCreatorProps) {
     return out
   }, [mode, seenIds])
 
-  // Total new/seen counts for the mode badge
+  // Only questions with a difficulty are selectable in the session creator
+  const selectableQuestions = useMemo(() => allQuestions.filter((q) => !!q.difficulty), [])
+
+  // Total new/seen counts for the mode badge (selectable questions only)
   const totalNew = useMemo(() =>
-    allQuestions.filter((q) => !seenIds.has(q.id)).length,
-  [seenIds])
+    selectableQuestions.filter((q) => !seenIds.has(q.id)).length,
+  [seenIds, selectableQuestions])
   const totalSeen = useMemo(() =>
-    allQuestions.filter((q) => seenIds.has(q.id)).length,
-  [seenIds])
+    selectableQuestions.filter((q) => seenIds.has(q.id)).length,
+  [seenIds, selectableQuestions])
 
   function switchMode(next: Mode) {
     setMode(next)
@@ -186,7 +189,7 @@ export function SessionCreator({ onStart, onBack }: SessionCreatorProps) {
             <div className="text-2xl mb-1">🎉</div>
             <div className="font-semibold text-green-800 text-sm mb-1">Alle Fragen bearbeitet!</div>
             <p className="text-green-700 text-xs mb-3">
-              Du hast alle {allQuestions.length} Fragen mindestens einmal gesehen. Wechsle zu „Wiederholung" oder setze den Fortschritt zurück.
+              Du hast alle {selectableQuestions.length} Fragen mindestens einmal gesehen. Wechsle zu „Wiederholung" oder setze den Fortschritt zurück.
             </p>
             <button
               onClick={() => { clearSeen(); switchMode('new') }}
