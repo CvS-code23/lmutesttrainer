@@ -18,6 +18,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, false, true],
     explanation:
       'Call options give the right (not obligation) to buy. The holder exercises only when profitable. American calls on non-dividend-paying stocks are never optimally exercised early because the time value is always positive.',
+    difficulty: 'easy',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 20',
   },
   {
@@ -35,6 +36,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, false],
     explanation:
       'Put-call parity C + PV(K) = P + S holds strictly for European options. Violations imply arbitrage. A synthetic call = P + S − PV(K). Dividends complicate but do not eliminate the relationship.',
+    difficulty: 'medium',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 20',
   },
   {
@@ -52,6 +54,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, true],
     explanation:
       'The risk-neutral probability is a mathematical construct, not the actual probability. Everything else is a standard result of the binomial model.',
+    difficulty: 'hard',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 21',
   },
   {
@@ -69,6 +72,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, false, true, true],
     explanation:
       'Higher volatility increases option value (both calls and puts). Black-Scholes is derived for European options; American puts may require numerical methods. Under risk-neutral pricing, the expected return cancels out.',
+    difficulty: 'easy',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 21',
   },
   {
@@ -86,6 +90,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [false, true, true, true, true],
     explanation:
       'In perfect capital markets (MM), hedging does not add value. In imperfect markets, hedging reduces distress costs, taxes (via convexity), and managerial risk aversion.',
+    difficulty: 'medium',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 30',
   },
   {
@@ -103,6 +108,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, false, true, true],
     explanation:
       'A put is ITM when S < K. Intrinsic value = max(payoff, 0) ≥ 0. Time value = option price − intrinsic value ≥ 0. At expiry there is no time remaining, so price = intrinsic value.',
+    difficulty: 'hard',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 20',
   },
   {
@@ -120,6 +126,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, false],
     explanation:
       'VaR does not quantify how large losses can be beyond the threshold—that is CVaR\'s role. VaR = $0 at some confidence level is possible yet the firm may still face large tail losses.',
+    difficulty: 'easy',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 30',
   },
   {
@@ -137,6 +144,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, false],
     explanation:
       'Forwards are OTC (over-the-counter) bilateral contracts, not exchange-traded (those are futures). The long forward payoff is S_T − F, not F − S_T.',
+    difficulty: 'medium',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 30',
   },
   {
@@ -154,6 +162,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, true],
     explanation:
       'Gamma (sensitivity of delta to stock price) is always positive for long option positions, not negative. All other statements are correct Black-Scholes Greeks.',
+    difficulty: 'hard',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 21',
   },
   {
@@ -171,6 +180,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, true],
     explanation:
       'The maximum put payoff is K (when S = 0), not unlimited. All other statements are correct.',
+    difficulty: 'easy',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 20',
   },
   {
@@ -188,6 +198,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'American options are worth at least as much as European options (≥, not >). Early exercise of a call is suboptimal for non-dividend payers because the time value is positive.',
+    difficulty: 'medium',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 20',
   },
   {
@@ -205,6 +216,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, true, false],
     explanation:
       'Residual basis risk and imperfect hedge ratios mean that currency risk cannot always be fully eliminated.',
+    difficulty: 'hard',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 30',
   },
   {
@@ -222,6 +234,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, true],
     explanation:
       'Risk-neutral probabilities are mathematical tools derived from no-arbitrage, not the actual market probabilities of outcomes.',
+    difficulty: 'easy',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 21',
   },
   {
@@ -239,6 +252,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, false, true],
     explanation:
       'A firm that sells oil would go long futures to hedge (not buy futures on top of selling—that would be wrong direction). Delta hedging requires dynamic rebalancing, not a fixed ratio.',
+    difficulty: 'medium',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 30',
   },
   {
@@ -256,6 +270,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, true],
     explanation:
       'The replicating portfolio includes both shares and a risk-free bond (or borrowing). Options can be priced via replication without knowing risk preferences—this is the power of no-arbitrage pricing.',
+    difficulty: 'hard',
     source: 'Berk/DeMarzo, Corporate Finance 5e, Ch. 21',
   },
 
@@ -275,6 +290,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, false, true],
     explanation:
       'Einzahlungen (Geldeingang) und Einnahmen (Umsatz) können zeitlich auseinanderfallen. Kalkulatorische Kosten (z.B. kalk. Unternehmerlohn) haben keine Gegenbuchung in der FiBu.',
+    difficulty: 'easy',
     source: 'Friedl/Hofmann/Pedell, Kostenrechnung 4e, Kap. 1',
   },
   {
@@ -292,6 +308,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, false, true],
     explanation:
       'Die einstufige DB-Rechnung trennt nur variable Kosten und Fixkosten – die Differenzierung mehrerer Fixkostenblöcke ist der mehrstufigen DB-Rechnung vorbehalten. Bei Engpass gilt: maximiere den relativen Deckungsbeitrag je Engpasseinheit.',
+    difficulty: 'medium',
     source: 'Friedl/Hofmann/Pedell, Kostenrechnung 4e, Kap. 7',
   },
   {
@@ -309,6 +326,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, true],
     explanation:
       'Lmn-Prozesse sind gerade NICHT von der Leistungsmenge abhängig (z.B. Bereichsleitung), anders als lmi-Prozesse.',
+    difficulty: 'hard',
     source: 'Friedl/Hofmann/Pedell, Kostenrechnung 4e, Kap. 8',
   },
   {
@@ -326,6 +344,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [false, true, true, true, true],
     explanation:
       'Die starre Plankostenrechnung erlaubt KEINE Verbrauchsabweichungsanalyse, da Plankosten nicht an die Istbeschäftigung angepasst werden – das kann nur die flexible Plankostenrechnung.',
+    difficulty: 'easy',
     source: 'Friedl/Hofmann/Pedell, Kostenrechnung 4e, Kap. 9',
   },
   {
@@ -343,6 +362,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, true],
     explanation:
       'Target Costing folgt dem Market-In-Prinzip (Marktpreis → Zielkosten), nicht dem Cost-Out-Prinzip (Kosten → Preis).',
+    difficulty: 'medium',
     source: 'Friedl/Hofmann/Pedell, Kostenrechnung 4e, Kap. 10',
   },
   {
@@ -360,6 +380,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, false, true],
     explanation:
       'Vorleistungskosten (F&E, Prototypen) entstehen VOR der Markteinführung. Die erweiterte Lebenszyklusrechnung (Total Cost of Ownership) bezieht ausdrücklich Folgekosten beim Kunden ein.',
+    difficulty: 'hard',
     source: 'Friedl/Hofmann/Pedell, Kostenrechnung 4e, Kap. 11',
   },
   {
@@ -377,6 +398,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, false],
     explanation:
       'Bei Konflikten haben einzelne IFRS-Standards Vorrang vor dem Rahmenkonzept. HGB und IFRS haben grundlegend unterschiedliche Konzeptionen (z.B. Vorsichtsprinzip vs. Informationsfunktion).',
+    difficulty: 'easy',
     source: 'Pellens et al., Internationale Rechnungslegung 11e, Kap. 1–3',
   },
   {
@@ -394,6 +416,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, false],
     explanation:
       'IAS 16 erlaubt alternativ das Neubewertungsmodell (revaluation model). Reparaturkosten werden nur aktiviert, wenn sie die Nutzungsdauer verlängern oder den Wert erhöhen.',
+    difficulty: 'medium',
     source: 'Pellens et al., Internationale Rechnungslegung 11e, Kap. 4',
   },
   {
@@ -411,6 +434,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, true],
     explanation:
       'Derivate werden unter IFRS 9 stets zum beizulegenden Zeitwert (Fair Value) bewertet, nicht zu Anschaffungskosten.',
+    difficulty: 'hard',
     source: 'Pellens et al., Internationale Rechnungslegung 11e, Kap. 21',
   },
   {
@@ -428,6 +452,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, false],
     explanation:
       'Nach IFRS 3 unterliegt Goodwill einem jährlichen Impairment-Test (kein planmäßige Abschreibung). Bei der Equity-Methode wird nur der anteilige Buchwert angesetzt, keine Vollkonsolidierung.',
+    difficulty: 'easy',
     source: 'Pellens et al., Internationale Rechnungslegung 11e, Kap. 27',
   },
   {
@@ -445,6 +470,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, true, false],
     explanation:
       'Die Kostenrechnung ist primär ein internes Steuerungsinstrument. Nur die externe Rechnungslegung (HGB, IFRS) dient externen Zwecken.',
+    difficulty: 'medium',
     source: 'Friedl/Hofmann/Pedell, Kostenrechnung 4e, Kap. 1',
   },
   {
@@ -462,6 +488,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, false, true],
     explanation:
       'IAS 2 verbietet die LIFO-Methode ausdrücklich. Wertaufholungen bis maximal zu den ursprünglichen Anschaffungskosten sind nach IAS 2 erforderlich, wenn der Nettoveräußerungswert wieder steigt.',
+    difficulty: 'hard',
     source: 'Pellens et al., Internationale Rechnungslegung 11e, Kap. 4',
   },
   {
@@ -479,6 +506,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, false],
     explanation:
       'Eventualverbindlichkeiten werden im IFRS-Abschluss nur im Anhang angegeben (disclosed), nicht bilanziert. Das Imparitätsprinzip ist im HGB ausgeprägter als in IFRS.',
+    difficulty: 'easy',
     source: 'Pellens et al., Internationale Rechnungslegung 11e, Kap. 5',
   },
   {
@@ -496,6 +524,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, false, true],
     explanation:
       'Erworbener Goodwill wird nach IFRS 3 (nicht IAS 38) erfasst. Intern entwickelte Marken, Kundenstämme etc. sind nach IAS 38 ausdrücklich von der Aktivierung ausgeschlossen.',
+    difficulty: 'medium',
     source: 'Pellens et al., Internationale Rechnungslegung 11e, Kap. 4',
   },
   {
@@ -513,6 +542,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'In der mehrstufigen DB-Rechnung werden Fixkosten gerade NICHT vollständig auf Produkte verrechnet, sondern nur den Ebenen zugeordnet, denen sie zurechenbar sind.',
+    difficulty: 'hard',
     source: 'Friedl/Hofmann/Pedell, Kostenrechnung 4e, Kap. 7',
   },
 
@@ -532,6 +562,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, false, true],
     explanation:
       'Vertrauen ist in virtuellen Organisationen besonders wichtig, da physische Kontrolle fehlt. Virtuelle Organisationen haben gerade keine zentrale Verwaltung; das ist ihr Wesensmerkmal.',
+    difficulty: 'easy',
     source: 'Alt et al. (2005), HMD Praxis der Wirtschaftsinformatik 242, S. 7–20',
   },
   {
@@ -549,6 +580,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, false, true],
     explanation:
       'Implizites Wissen (Erfahrungswissen) ist schwer artikulierbar und übertragbar. Communities of Practice sind informelle Gemeinschaften von Praktikern, keine formellen Einheiten.',
+    difficulty: 'medium',
     source: 'Hess, T. (2007), Handwörterbuch der Betriebswirtschaft 6. Aufl., S. 2017–2027',
   },
   {
@@ -566,6 +598,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Lead-User-Projekte zeigten in der Studie signifikant höheres Umsatzpotenzial und höhere Neuheit als traditionelle Entwicklungsansätze.',
+    difficulty: 'hard',
     source: 'Lilien et al. (2002), Management Science 48(8), S. 1024–1059',
   },
   {
@@ -583,6 +616,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Process Mining ist sowohl retrospektiv (Analyse vergangener Prozesse) als auch prospektiv einsetzbar. Van der Aalst beschreibt drei Anwendungstypen: Discovery, Conformance Checking und Enhancement.',
+    difficulty: 'easy',
     source: 'Van der Aalst, W. (2016), Process Mining, Springer, S. 25–52',
   },
   {
@@ -600,6 +634,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, false],
     explanation:
       'ML fokussiert auf Vorhersagegenauigkeit, Ökonometrie auf kausale Inferenz – das sind verschiedene Ziele. Overfitting ist auch bei großen Datensätzen relevant, insbesondere bei hochdimensionalen Modellen.',
+    difficulty: 'medium',
     source: 'Varian, H. R. (2014), Journal of Economic Perspectives 28(2), S. 3–28',
   },
   {
@@ -617,6 +652,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, true, false],
     explanation:
       'Klare Rollenverteilungen und Verträge sind gerade bei virtuellen Organisationen wichtig, um Koordination sicherzustellen.',
+    difficulty: 'hard',
     source: 'Alt et al. (2005), HMD Praxis der Wirtschaftsinformatik 242, S. 7–20',
   },
   {
@@ -634,6 +670,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, false],
     explanation:
       'Es gibt einen Trade-off zwischen beiden Strategien. Wissensmanagement ist ein organisatorisches und kulturelles Problem, nicht nur ein technisches.',
+    difficulty: 'easy',
     source: 'Hess, T. (2007), Handwörterbuch der Betriebswirtschaft 6. Aufl., S. 2017–2027',
   },
   {
@@ -651,6 +688,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, false, true],
     explanation:
       'Conformance Checking benötigt ein Referenzmodell, mit dem das Log verglichen wird. Reale Event Logs enthalten häufig Fehler und Unvollständigkeiten – Process Mining ist dennoch anwendbar.',
+    difficulty: 'medium',
     source: 'Van der Aalst, W. (2016), Process Mining, Springer, S. 25–52',
   },
   {
@@ -668,6 +706,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, false],
     explanation:
       'Ridge-Regression fügt explizit einen Regularisierungsterm (L2-Norm) hinzu. Varian betont, dass datengetriebene Prognosen kausale Analyse nicht ersetzen – Korrelation ist keine Kausalität.',
+    difficulty: 'hard',
     source: 'Varian, H. R. (2014), Journal of Economic Perspectives 28(2), S. 3–28',
   },
   {
@@ -685,6 +724,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, false],
     explanation:
       'Lead-User-Konzepte waren deutlich neuartiger und hatten höheres Umsatzpotenzial. Die Identifikation umfasste auch Experten aus analogen Märkten und interne Mitarbeiter.',
+    difficulty: 'easy',
     source: 'Lilien et al. (2002), Management Science 48(8), S. 1024–1059',
   },
   {
@@ -702,6 +742,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, false],
     explanation:
       'Externalisierung wandelt IMPLIZITES in EXPLIZITES Wissen um (z.B. durch Metaphern, Modelle). Die Wissensspirale ist ein kontinuierlicher Prozess ohne natürliches Ende.',
+    difficulty: 'medium',
     source: 'Hess, T. (2007), Handwörterbuch der Betriebswirtschaft 6. Aufl., S. 2017–2027',
   },
   {
@@ -719,6 +760,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, false],
     explanation:
       'Process Mining ist branchenunabhängig einsetzbar (Gesundheitswesen, Finanzdienstleistungen etc.). Discovery zeigt, dass das Modell nicht vorab bekannt sein muss.',
+    difficulty: 'hard',
     source: 'Van der Aalst, W. (2016), Process Mining, Springer, S. 25–52',
   },
   {
@@ -736,6 +778,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, false],
     explanation:
       'Mitgliedschaft ist typischerweise temporär und projektbezogen. Formale Verträge und Vertrauen ergänzen sich gegenseitig und sind beide notwendig.',
+    difficulty: 'easy',
     source: 'Alt et al. (2005), HMD Praxis der Wirtschaftsinformatik 242, S. 7–20',
   },
   {
@@ -753,6 +796,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, false, true],
     explanation:
       'Unsupervised Learning sucht Strukturen in unlabeled Daten (z.B. Clustering), nicht einen vordefinierten Output. Selbst bei großen Datensätzen kann Qualität oder Repräsentativität eingeschränkt sein.',
+    difficulty: 'medium',
     source: 'Varian, H. R. (2014), Journal of Economic Perspectives 28(2), S. 3–28',
   },
   {
@@ -770,6 +814,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, false],
     explanation:
       'Der Wert von Wissen ist oft schwer monetär zu quantifizieren (z.B. Erfahrungswissen). Organisationales Lernen und Wissensmanagement überschneiden sich konzeptuell.',
+    difficulty: 'hard',
     source: 'Hess, T. (2007), Handwörterbuch der Betriebswirtschaft 6. Aufl., S. 2017–2027',
   },
 
@@ -789,6 +834,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, false],
     explanation:
       'Substitutes include all products that serve the same underlying customer need, even from different industries. Porter\'s framework covers all five forces, not only existing rivals.',
+    difficulty: 'easy',
     source: 'Porter, M.E. (1980), Competitive Strategy, Free Press',
   },
   {
@@ -806,6 +852,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, false],
     explanation:
       'Pursuing both cost leadership and differentiation simultaneously risks being "stuck in the middle." Sustainable advantage requires activities that are difficult to imitate.',
+    difficulty: 'medium',
     source: 'Porter, M.E. (1980), Competitive Strategy, Free Press',
   },
   {
@@ -823,6 +870,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Co-opetition explicitly allows cooperation even with direct competitors when value can be created jointly. The PARTS framework is the analytical core of the book.',
+    difficulty: 'hard',
     source: 'Brandenburger & Nalebuff (1996), Co-opetition, Doubleday',
   },
   {
@@ -840,6 +888,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, false],
     explanation:
       'Vertical integration reduces hold-up risk but introduces its own costs (bureaucracy, reduced incentives). With high asset specificity, spot markets are particularly problematic due to hold-up risk.',
+    difficulty: 'easy',
     source: 'Besanko et al. (2013), Economics of Strategy 6e, Wiley',
   },
   {
@@ -857,6 +906,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, true, false],
     explanation:
       'Perfect (first-degree) price discrimination requires complete knowledge of each customer\'s willingness to pay, which is extremely demanding informationally.',
+    difficulty: 'medium',
     source: 'Shapiro & Varian (1999), Information Rules, Harvard Business School Press',
   },
   {
@@ -874,6 +924,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, true, false],
     explanation:
       'In perfect competition, free entry drives economic profits to zero in the long run.',
+    difficulty: 'hard',
     source: 'Cabral, L.M.B. (2000), Introduction to Industrial Organization, MIT Press',
   },
   {
@@ -891,6 +942,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, true],
     explanation:
       'Brand loyalty increases costs for entrants (they must spend more to overcome incumbents\' advantage), not reduces them.',
+    difficulty: 'easy',
     source: 'Besanko et al. (2013), Economics of Strategy 6e; Porter (1980)',
   },
   {
@@ -908,6 +960,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, true],
     explanation:
       'The prisoner\'s dilemma produces a collectively suboptimal outcome (both defect) even though each player acts individually rationally.',
+    difficulty: 'medium',
     source: 'Besanko et al. (2013), Economics of Strategy 6e; Cabral (2000)',
   },
   {
@@ -925,6 +978,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'A large installed base is a strong competitive advantage in network industries because it attracts users and complements.',
+    difficulty: 'hard',
     source: 'Shapiro & Varian (1999), Information Rules',
   },
   {
@@ -942,6 +996,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Firms often differentiate themselves precisely by configuring their value chain differently from industry norms.',
+    difficulty: 'easy',
     source: 'Porter, M.E. (1980), Competitive Strategy, Free Press',
   },
   {
@@ -959,6 +1014,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, true],
     explanation:
       'There are multiple levers for improving position: increasing added value (A), changing rules (R), altering tactics (T), and changing scope (S).',
+    difficulty: 'medium',
     source: 'Brandenburger & Nalebuff (1996), Co-opetition, Doubleday',
   },
   {
@@ -976,6 +1032,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'For a natural monopoly, P = MC pricing may lead to losses because average costs still exceed marginal costs at that output; regulators often use P = AC instead.',
+    difficulty: 'hard',
     source: 'Cabral, L.M.B. (2000), Introduction to Industrial Organization, MIT Press',
   },
   {
@@ -993,6 +1050,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Fragmented industries with many small firms can have low profitability due to intense price competition.',
+    difficulty: 'easy',
     source: 'Porter, M.E. (1980), Competitive Strategy; Besanko et al. (2013)',
   },
   {
@@ -1010,6 +1068,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, true],
     explanation:
       'Switching costs primarily benefit sellers, not buyers, by reducing buyers\' ability to respond to price increases.',
+    difficulty: 'medium',
     source: 'Shapiro & Varian (1999), Information Rules, Harvard Business School Press',
   },
   {
@@ -1027,6 +1086,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, true],
     explanation:
       'The experience (learning) curve reflects cumulative production over time, not just within a single period.',
+    difficulty: 'hard',
     source: 'Besanko et al. (2013), Economics of Strategy 6e, Wiley',
   },
 
@@ -1046,6 +1106,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, true],
     explanation:
       'Research consistently shows that the source of recruitment influences applicant quality, retention, and fit—it is not irrelevant.',
+    difficulty: 'easy',
     source: 'Breaugh, J.A. (2013), Annual Review of Psychology, 64, 389–416',
   },
   {
@@ -1063,6 +1124,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Bidwell finds external hires earn more but perform worse initially and are more likely to leave — overall making external hiring more expensive than internal promotion.',
+    difficulty: 'medium',
     source: 'Bidwell, M. (2011), Administrative Science Quarterly, 56(3), 369–407',
   },
   {
@@ -1080,6 +1142,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Evidence on e-learning effectiveness is mixed and context-dependent — it is not universally superior to face-to-face formats.',
+    difficulty: 'hard',
     source: 'Aguinis & Kraiger (2009), Annual Review of Psychology, 60(1), 451–474',
   },
   {
@@ -1097,6 +1160,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, true, false],
     explanation:
       'The evidence shows that variable/performance-based pay can be more motivating in many contexts than fixed pay alone.',
+    difficulty: 'easy',
     source: 'Gerhart & Weller (2019), Handbook of Human Resource Management, Sage',
   },
   {
@@ -1114,6 +1178,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, true],
     explanation:
       'Gender bias affects performance evaluations, promotions, and compensation, not only hiring decisions.',
+    difficulty: 'medium',
     source: 'Heilman & Caleo (2018), Group Processes & Intergroup Relations, 21(5), 725–744',
   },
   {
@@ -1131,6 +1196,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Need theories such as Maslow\'s hierarchy have received limited empirical support in organizational contexts.',
+    difficulty: 'hard',
     source: 'Kanfer & Chen (2016), Organizational Behavior and Human Decision Processes, 136, 6–19',
   },
   {
@@ -1148,6 +1214,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'The effect of autonomy on satisfaction depends on individual differences (e.g., growth need strength). Not all employees prefer or benefit from high autonomy.',
+    difficulty: 'easy',
     source: 'Oldham & Fried (2016), Organizational Behavior and Human Decision Processes, 136, 20–35',
   },
   {
@@ -1165,6 +1232,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, false],
     explanation:
       'High cohesion can lead to groupthink and suppress dissent, potentially harming decision quality. Larger teams face higher coordination costs.',
+    difficulty: 'medium',
     source: 'Mathieu et al. (2017), Journal of Applied Psychology, 102(3), 452–467',
   },
   {
@@ -1182,6 +1250,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Leadership prototypes vary across cultures (though some universal traits exist, such as charisma).',
+    difficulty: 'hard',
     source: 'Junker & van Dick (2014), The Leadership Quarterly, 25, 1154–1173',
   },
   {
@@ -1199,6 +1268,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, true],
     explanation:
       'Structured interviews consistently outperform unstructured interviews in predictive validity.',
+    difficulty: 'easy',
     source: 'Sackett et al. (2022), Journal of Applied Psychology, 107(11), 2040',
   },
   {
@@ -1216,6 +1286,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, false, true, true, true],
     explanation:
       'Organizational culture is a powerful driver of employee behavior, attitudes, and performance.',
+    difficulty: 'medium',
     source: 'Gibson et al. (2012), Organizations Ch. 8; Sinding & Waldstrom (2014) Ch. 5, 6, 15',
   },
   {
@@ -1233,6 +1304,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, true, false],
     explanation:
       'Attribution theory explains how individuals explain the causes of behavior (their own and others\'), not how they manage others\' impressions (that is impression management).',
+    difficulty: 'hard',
     source: 'Sinding & Waldstrom (2014), Organisational Behaviour 5e, McGraw-Hill, Ch. 5',
   },
   {
@@ -1250,6 +1322,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, true, false],
     explanation:
       'Social facilitation research shows that the presence of others can impair performance on complex or unfamiliar tasks.',
+    difficulty: 'easy',
     source: 'Gibson et al. (2012), Organizations: Behavior, Structure, Processes, Ch. 8',
   },
   {
@@ -1267,6 +1340,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Organic (low formalization, decentralized) structures are more effective in dynamic environments; mechanistic (high formalization) structures suit stable environments.',
+    difficulty: 'medium',
     source: 'Sinding & Waldstrom (2014), Organisational Behaviour 5e, Ch. 15',
   },
   {
@@ -1284,6 +1358,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Conformity to dysfunctional norms (e.g., low-effort norms) can impair group performance.',
+    difficulty: 'hard',
     source: 'Sinding & Waldstrom (2014), Organisational Behaviour 5e, Ch. 6',
   },
 
@@ -1303,6 +1378,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, true, false],
     explanation:
       'The Leontief paradox showed the US actually exported more labor-intensive goods than expected, contradicting the Heckscher-Ohlin prediction.',
+    difficulty: 'easy',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1320,6 +1396,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'FDI can have negative effects on host countries, including crowding out local firms, repatriation of profits, and potential environmental or labor standard concerns.',
+    difficulty: 'medium',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1337,6 +1414,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Hofstede\'s dimensions have wide practical implications for leadership style, negotiation, HRM, and marketing in international business.',
+    difficulty: 'hard',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1354,6 +1432,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, true],
     explanation:
       'Joint ventures involve shared control between partners, not full control for the entering firm.',
+    difficulty: 'easy',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1371,6 +1450,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'The IR framework (Prahalad & Doz) is one of the most widely used frameworks for analyzing MNC strategy — it is highly relevant.',
+    difficulty: 'medium',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1388,6 +1468,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, true],
     explanation:
       'Fixed exchange rate systems reduce currency volatility but do not eliminate all risk — devaluation or revaluation risk remains.',
+    difficulty: 'hard',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1405,6 +1486,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Trade embargoes restrict, not promote, international trade by prohibiting transactions with targeted countries.',
+    difficulty: 'easy',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1422,6 +1504,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, true, true],
     explanation:
       'All five statements accurately reflect key concepts in international HRM from Hill\'s textbook.',
+    difficulty: 'medium',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1439,6 +1522,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'EU membership entails deep integration including common external tariff, single market, common regulations, and other policies far beyond tariff elimination.',
+    difficulty: 'hard',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1456,6 +1540,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, true],
     explanation:
       'Related and supporting industries enhance national competitiveness by providing specialized inputs, knowledge spillovers, and complementary innovations.',
+    difficulty: 'easy',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1473,6 +1558,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Supply chain disruptions (as seen during COVID-19) can severely affect firm performance through production stoppages and revenue losses.',
+    difficulty: 'medium',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1490,6 +1576,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Ethical norms differ significantly across cultures (e.g., gift-giving norms, attitudes toward nepotism), creating genuine ethical dilemmas for international managers.',
+    difficulty: 'hard',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1507,6 +1594,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, false, true, true],
     explanation:
       'Most floating exchange rate regimes involve some managed floating — central banks intervene to smooth excessive volatility even when they do not target a specific rate.',
+    difficulty: 'easy',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1524,6 +1612,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Higher control entry modes (e.g., wholly owned subsidiaries) typically involve higher investment and exposure, meaning higher risk as well as higher potential return.',
+    difficulty: 'medium',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
   {
@@ -1541,6 +1630,7 @@ const baseQuestions: Question[] = [
     correctAnswers: [true, true, true, false, true],
     explanation:
       'Free trade generally increases aggregate welfare but creates winners and losers within countries — workers in import-competing industries may be worse off.',
+    difficulty: 'hard',
     source: 'Hill, C.W. (2023), International Business 14e, McGraw-Hill',
   },
 ]
