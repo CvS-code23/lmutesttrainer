@@ -1,5 +1,7 @@
+import { useMemo } from 'react'
 import { SUBJECT_META } from '../utils/scoring'
 import { type Subject } from '../types'
+import { loadPausedSession } from '../utils/pausedSession'
 
 interface HomeProps {
   onStartPractice: () => void
@@ -8,10 +10,12 @@ interface HomeProps {
   onLiterature: () => void
   onDashboard: () => void
   onLernheft: (subject?: Subject) => void
+  onResumePaused: () => void
 }
 
-export function Home({ onStartPractice, onStartTest, onSessionCreator, onLiterature, onDashboard, onLernheft }: HomeProps) {
+export function Home({ onStartPractice, onStartTest, onSessionCreator, onLiterature, onDashboard, onLernheft, onResumePaused }: HomeProps) {
   const subjects = Object.values(SUBJECT_META)
+  const paused = useMemo(() => loadPausedSession(), [])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-lmu-blue to-lmu-light flex flex-col">
@@ -36,6 +40,24 @@ export function Home({ onStartPractice, onStartTest, onSessionCreator, onLiterat
       {/* Main actions */}
       <main className="flex-1 px-4 pb-12">
         <div className="max-w-3xl mx-auto">
+
+          {/* Resume banner */}
+          {paused && (
+            <button
+              onClick={onResumePaused}
+              className="w-full mb-5 bg-lmu-gold text-lmu-blue rounded-2xl px-5 py-4 flex items-center gap-4 shadow-lg hover:brightness-105 transition-all text-left"
+            >
+              <span className="text-3xl flex-shrink-0">⏸</span>
+              <div className="flex-1 min-w-0">
+                <div className="font-bold text-base">Pausierte Session fortsetzen</div>
+                <div className="text-sm opacity-75">
+                  Frage {paused.currentIndex + 1} von {paused.questionIds.length} · {paused.results.length} bereits beantwortet
+                </div>
+              </div>
+              <span className="font-bold text-lg flex-shrink-0">→</span>
+            </button>
+          )}
+
           {/* Mode cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
             <button

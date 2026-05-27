@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import { questions as allQuestions } from '../data/questions'
 import { type Question, type Subject } from '../types'
 import { SUBJECT_META, pickRandom } from '../utils/scoring'
-import { getSeenIds, clearSeen } from '../utils/seenQuestions'
+import { getSeenMap, clearSeen } from '../utils/seenQuestions'
 
 interface SubjectConfig {
   easy: number
@@ -21,6 +21,7 @@ const SUBJECTS = Object.values(SUBJECT_META)
 
 type Diff = 'easy' | 'medium' | 'hard'
 type Mode = 'new' | 'review'
+type ReviewFilter = 'all' | 'correct' | 'wrong'
 
 const DIFF_LABEL: Record<Diff, string> = { easy: 'Leicht', medium: 'Mittel', hard: 'Schwer' }
 
@@ -44,9 +45,23 @@ function defaultConfig(): SessionConfig {
 export function SessionCreator({ onStart, onBack }: SessionCreatorProps) {
   const [configs, setConfigs] = useState<SessionConfig>(defaultConfig)
   const [mode, setMode] = useState<Mode>('new')
+  const [reviewFilter, setReviewFilter] = useState<ReviewFilter>('all')
 
-  // Seen IDs — re-read when mode changes so it's always fresh
-  const seenIds = useMemo(() => getSeenIds(), [mode])
+  // SeenMap — re-read when mode changes so it's always fresh
+  const seenMap = useMemo(() => getSeenMap(), [mode])
+  const seenIds = useMemo(() => new Set(Object.keys(seenMap)), [seenMap])
+
+  // Only questions with a difficulty are selectable
+  const selectableQuestions = useMemo(() => allQuestions.filter((q) => !!q.difficulty), [])
+
+  // Filter function for review mode
+  function isInReviewPool(id: string): boolean {
+    if (!seenIds.has(id)) return false
+    if (reviewFilter === 'all') return true
+    const entry = seenMap[id]
+    if (!entry || entry.lastScore < 0) return true // migrated old data → include in all
+    return reviewFilter === 'correct' ? entry.lastScore === 5 : entry.lastScore < 5
+  }
 
   const availability = useMemo(() => {
     const out = {} as Record<Subject, Record<Diff, number>>
@@ -54,7 +69,7 @@ export function SessionCreator({ onStart, onBack }: SessionCreatorProps) {
       const sq = allQuestions.filter((q) => q.subject === s.id)
       const pool = mode === 'new'
         ? sq.filter((q) => !seenIds.has(q.id))
-        : sq.filter((q) => seenIds.has(q.id))
+        : sq.filter((q) => isInReviewPool(q.id))
       out[s.id] = {
         easy: pool.filter((q) => q.difficulty === 'easy').length,
         medium: pool.filter((q) => q.difficulty === 'medium').length,
@@ -62,21 +77,34 @@ export function SessionCreator({ onStart, onBack }: SessionCreatorProps) {
       }
     }
     return out
-  }, [mode, seenIds])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, seenIds, reviewFilter])
 
-  // Only questions with a difficulty are selectable in the session creator
-  const selectableQuestions = useMemo(() => allQuestions.filter((q) => !!q.difficulty), [])
-
-  // Total new/seen counts for the mode badge (selectable questions only)
+  // Badge counts
   const totalNew = useMemo(() =>
     selectableQuestions.filter((q) => !seenIds.has(q.id)).length,
   [seenIds, selectableQuestions])
   const totalSeen = useMemo(() =>
     selectableQuestions.filter((q) => seenIds.has(q.id)).length,
   [seenIds, selectableQuestions])
+  const totalCorrect = useMemo(() =>
+    selectableQuestions.filter((q) => seenMap[q.id]?.lastScore === 5).length,
+  [seenMap, selectableQuestions])
+  const totalWrong = useMemo(() =>
+    selectableQuestions.filter((q) => {
+      const e = seenMap[q.id]
+      return e !== undefined && e.lastScore >= 0 && e.lastScore < 5
+    }).length,
+  [seenMap, selectableQuestions])
 
   function switchMode(next: Mode) {
     setMode(next)
+    setReviewFilter('all')
+    setConfigs(defaultConfig())
+  }
+
+  function switchReviewFilter(next: ReviewFilter) {
+    setReviewFilter(next)
     setConfigs(defaultConfig())
   }
 
@@ -118,7 +146,7 @@ export function SessionCreator({ onStart, onBack }: SessionCreatorProps) {
       const { easy, medium, hard } = configs[s.id]
       const pool = allQuestions.filter((q) => {
         if (q.subject !== s.id) return false
-        return mode === 'new' ? !seenIds.has(q.id) : seenIds.has(q.id)
+        return mode === 'new' ? !seenIds.has(q.id) : isInReviewPool(q.id)
       })
       if (easy > 0) selected.push(...pickRandom(pool.filter((q) => q.difficulty === 'easy'), easy))
       if (medium > 0) selected.push(...pickRandom(pool.filter((q) => q.difficulty === 'medium'), medium))
@@ -182,6 +210,35 @@ export function SessionCreator({ onStart, onBack }: SessionCreatorProps) {
             </span>
           </button>
         </div>
+
+        {/* Review sub-filter */}
+        {mode === 'review' && totalSeen > 0 && (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-1 flex gap-1">
+            {([
+              { key: 'all',     label: 'Alle',    count: totalSeen,    icon: '📋' },
+              { key: 'correct', label: 'Richtig', count: totalCorrect, icon: '✅' },
+              { key: 'wrong',   label: 'Falsch',  count: totalWrong,   icon: '❌' },
+            ] as { key: ReviewFilter; label: string; count: number; icon: string }[]).map(({ key, label, count, icon }) => (
+              <button
+                key={key}
+                onClick={() => switchReviewFilter(key)}
+                className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold transition-all ${
+                  reviewFilter === key
+                    ? 'bg-lmu-blue text-white shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                <span>{icon}</span>
+                <span>{label}</span>
+                <span className={`px-1.5 py-0.5 rounded-full font-normal ${
+                  reviewFilter === key ? 'bg-white bg-opacity-20 text-blue-100' : 'bg-gray-100 text-gray-500'
+                }`}>
+                  {count}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* All-done banner */}
         {allDone && (

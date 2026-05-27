@@ -110,7 +110,9 @@ function SessionDetail({ session, onBack }: { session: SessionResult; onBack: ()
       const rs = results.filter((r) => r.question.difficulty === d)
       const s = rs.reduce((a, r) => a + r.score, 0)
       const m = rs.reduce((a, r) => a + r.maxScore, 0)
-      return { diff: d, count: rs.length, pct: m > 0 ? (s / m) * 100 : 0 }
+      const correct = rs.filter((r) => r.score === 5).length
+      const wrong = rs.length - correct
+      return { diff: d, count: rs.length, pct: m > 0 ? (s / m) * 100 : 0, correct, wrong }
     })
     .filter((d) => d.count > 0)
 
@@ -287,21 +289,34 @@ function SessionDetail({ session, onBack }: { session: SessionResult; onBack: ()
             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
               Nach Schwierigkeit
             </p>
-            <div className="space-y-2.5">
-              {byDiff.map(({ diff, count, pct: p }) => {
+            <div className="space-y-3">
+              {byDiff.map(({ diff, count, pct: p, correct, wrong }) => {
                 const label = { easy: 'Leicht', medium: 'Mittel', hard: 'Schwer' }[diff]
                 const dot = { easy: 'bg-green-400', medium: 'bg-yellow-400', hard: 'bg-red-400' }[diff]
+                const correctPct = count > 0 ? Math.round((correct / count) * 100) : 0
                 return (
-                  <div key={diff} className="flex items-center gap-3">
-                    <div className="flex items-center gap-1.5 w-16 flex-shrink-0">
-                      <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${dot}`} />
-                      <span className="text-xs font-medium text-gray-600">{label}</span>
+                  <div key={diff}>
+                    {/* Label + score bar */}
+                    <div className="flex items-center gap-3 mb-1.5">
+                      <div className="flex items-center gap-1.5 w-16 flex-shrink-0">
+                        <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${dot}`} />
+                        <span className="text-xs font-medium text-gray-600">{label}</span>
+                      </div>
+                      <ScoreBar pct={p} color={barColor(p)} />
+                      <div className={`w-10 text-right text-sm font-bold tabular-nums ${pctText(p)}`}>
+                        {p.toFixed(0)}%
+                      </div>
+                      <div className="w-5 text-right text-xs text-gray-400 tabular-nums">{count}</div>
                     </div>
-                    <ScoreBar pct={p} color={barColor(p)} />
-                    <div className={`w-10 text-right text-sm font-bold tabular-nums ${pctText(p)}`}>
-                      {p.toFixed(0)}%
+                    {/* Richtig / Falsch tags */}
+                    <div className="ml-[76px] flex gap-2">
+                      <span className="inline-flex items-center gap-1 text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full font-medium">
+                        ✓ {correct} richtig ({correctPct}%)
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-xs bg-red-50 text-red-600 px-2 py-0.5 rounded-full font-medium">
+                        ✗ {wrong} falsch
+                      </span>
                     </div>
-                    <div className="w-5 text-right text-xs text-gray-400 tabular-nums">{count}</div>
                   </div>
                 )
               })}

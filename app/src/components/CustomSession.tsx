@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { type Question, type SessionResult } from '../types'
 import { scoreQuestion } from '../utils/scoring'
+import { savePausedSession, clearPausedSession } from '../utils/pausedSession'
 import { QuestionCard } from './QuestionCard'
 import { SubjectBadge } from './SubjectBadge'
 
@@ -8,6 +9,10 @@ interface CustomSessionProps {
   questions: Question[]
   onFinish: (result: Omit<SessionResult, 'id' | 'timestamp'>) => void
   onBack: () => void
+  // Optional: restore a paused session
+  initialIndex?: number
+  initialResults?: SessionResult['results']
+  initialPausedDuration?: number
 }
 
 const DIFF_LABEL: Record<string, string> = { easy: 'Leicht', medium: 'Mittel', hard: 'Schwer' }
@@ -17,18 +22,28 @@ const DIFF_COLOR: Record<string, string> = {
   hard: 'bg-red-50 text-red-700',
 }
 
-export function CustomSession({ questions, onFinish, onBack }: CustomSessionProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
+export function CustomSession({
+  questions,
+  onFinish,
+  onBack,
+  initialIndex = 0,
+  initialResults = [],
+  initialPausedDuration = 0,
+}: CustomSessionProps) {
+  const [currentIndex, setCurrentIndex] = useState(initialIndex)
   const [userAnswers, setUserAnswers] = useState<boolean[]>([false, false, false, false, false])
   const [showResult, setShowResult] = useState(false)
-  const [results, setResults] = useState<SessionResult['results']>([])
+  const [results, setResults] = useState<SessionResult['results']>(initialResults)
   const [startTime] = useState(Date.now())
+  const pausedDuration = initialPausedDuration
   const questionStartRef = useRef(Date.now())
 
   const currentQuestion = questions[currentIndex]
-  const totalScore = results.reduce((s, r) => s + r.score, 0)
-  const maxScore = results.length * 5
   const lastScore = results[results.length - 1]?.score
+
+  function elapsedSeconds() {
+    return pausedDuration + Math.round((Date.now() - startTime) / 1000)
+  }
 
   function handleToggle(i: number) {
     setUserAnswers((prev) => {
@@ -49,12 +64,13 @@ export function CustomSession({ questions, onFinish, onBack }: CustomSessionProp
     questionStartRef.current = Date.now()
     if (currentIndex + 1 >= questions.length) {
       const allResults = [...results]
+      clearPausedSession()
       onFinish({
         mode: 'custom',
         results: allResults,
         totalScore: allResults.reduce((s, r) => s + r.score, 0),
         maxTotalScore: allResults.length * 5,
-        durationSeconds: Math.round((Date.now() - startTime) / 1000),
+        durationSeconds: elapsedSeconds(),
       })
       return
     }
@@ -63,7 +79,21 @@ export function CustomSession({ questions, onFinish, onBack }: CustomSessionProp
     setShowResult(false)
   }
 
+  function handlePause() {
+    // Save current state — question at currentIndex is not yet answered,
+    // so we only save up to currentIndex (results already contains answered ones)
+    savePausedSession({
+      questionIds: questions.map((q) => q.id),
+      currentIndex,
+      results,
+      pausedDuration: elapsedSeconds(),
+      savedAt: Date.now(),
+    })
+    onBack()
+  }
+
   function handleAbort() {
+    clearPausedSession()
     if (results.length === 0) { onBack(); return }
     const allResults = [...results]
     onFinish({
@@ -71,7 +101,7 @@ export function CustomSession({ questions, onFinish, onBack }: CustomSessionProp
       results: allResults,
       totalScore: allResults.reduce((s, r) => s + r.score, 0),
       maxTotalScore: allResults.length * 5,
-      durationSeconds: Math.round((Date.now() - startTime) / 1000),
+      durationSeconds: elapsedSeconds(),
     })
   }
 
@@ -94,10 +124,12 @@ export function CustomSession({ questions, onFinish, onBack }: CustomSessionProp
               {currentIndex + 1} / {questions.length}
             </div>
           </div>
-          <div className="text-right text-sm">
-            <div className="font-semibold">{totalScore} / {maxScore}</div>
-            <div className="text-blue-200 text-xs">Punkte</div>
-          </div>
+          <button
+            onClick={handlePause}
+            className="hover:bg-white hover:bg-opacity-20 rounded-lg px-3 py-1.5 text-sm transition flex items-center gap-1"
+          >
+            ⏸ Pause
+          </button>
         </div>
         {/* Progress bar */}
         <div className="max-w-2xl mx-auto mt-2">

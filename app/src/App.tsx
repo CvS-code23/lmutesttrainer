@@ -11,6 +11,8 @@ import { LernheftPage } from './components/LernheftPage'
 import { type Question, type SessionResult, type Subject } from './types'
 import { saveSession, generateId } from './utils/history'
 import { markSeen } from './utils/seenQuestions'
+import { loadPausedSession, clearPausedSession } from './utils/pausedSession'
+import { questions as allQuestions } from './data/questions'
 
 type View = 'home' | 'practice' | 'test' | 'results' | 'literature' | 'session-creator' | 'custom-session' | 'dashboard' | 'lernheft'
 
@@ -20,6 +22,9 @@ export default function App() {
   const [lastView, setLastView] = useState<View>('practice')
   const [customQuestions, setCustomQuestions] = useState<Question[]>([])
   const [lernheftInitialSubject, setLernheftInitialSubject] = useState<Subject | null>(null)
+  const [resumeIndex, setResumeIndex] = useState<number>(0)
+  const [resumeResults, setResumeResults] = useState<SessionResult['results']>([])
+  const [resumeDuration, setResumeDuration] = useState<number>(0)
 
   function openLernheft(subject?: Subject) {
     setLernheftInitialSubject(subject ?? null)
@@ -33,10 +38,24 @@ export default function App() {
       timestamp: Date.now(),
     }
     saveSession(fullResult)
-    markSeen(fullResult.results.map((r) => r.question.id))
+    markSeen(fullResult.results.map((r) => ({ id: r.question.id, score: r.score })))
     setLastResult(fullResult)
     setLastView(returnTo)
     setView('results')
+  }
+
+  function resumePausedSession() {
+    const paused = loadPausedSession()
+    if (!paused) return
+    // Reconstruct Question objects from IDs
+    const idMap = new Map(allQuestions.map((q) => [q.id, q]))
+    const qs = paused.questionIds.map((id) => idMap.get(id)).filter(Boolean) as Question[]
+    if (qs.length === 0) { clearPausedSession(); return }
+    setCustomQuestions(qs)
+    setResumeIndex(paused.currentIndex)
+    setResumeResults(paused.results)
+    setResumeDuration(paused.pausedDuration)
+    setView('custom-session')
   }
 
   if (view === 'home') {
@@ -48,6 +67,7 @@ export default function App() {
         onLiterature={() => setView('literature')}
         onDashboard={() => setView('dashboard')}
         onLernheft={(subject) => openLernheft(subject)}
+        onResumePaused={resumePausedSession}
       />
     )
   }
@@ -74,6 +94,9 @@ export default function App() {
       <SessionCreator
         onStart={(qs) => {
           setCustomQuestions(qs)
+          setResumeIndex(0)
+          setResumeResults([])
+          setResumeDuration(0)
           setView('custom-session')
         }}
         onBack={() => setView('home')}
@@ -86,7 +109,10 @@ export default function App() {
       <CustomSession
         questions={customQuestions}
         onFinish={(r) => handleFinish(r, 'session-creator')}
-        onBack={() => setView('session-creator')}
+        onBack={() => setView('home')}
+        initialIndex={resumeIndex}
+        initialResults={resumeResults}
+        initialPausedDuration={resumeDuration}
       />
     )
   }
